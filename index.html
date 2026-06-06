@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro by Neetu | Premium Spiritual Learning & Astrology Platform</title>
+    <!-- FontAwesome Luxury Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Desktop Background Aesthetics -->
+    <div class="desktop-bg-decor">
+        <div class="aurora-1"></div>
+        <div class="aurora-2"></div>
+    </div>
+
+    <!-- Floating Frame Toggle Controller (Desktop Only) -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <span>Toggle Frame View</span>
+    </button>
+
+    <!-- Global Toast Alert Banner -->
+    <div class="toast-notification" id="appToast">
+        <i class="fa-solid fa-circle-check toast-icon" id="toastIcon"></i>
+        <span id="toastMsg">Namaste! Welcome back.</span>
+    </div>
+
+    <!-- Admin Panel Route Switcher Toggle Badge -->
+    <div class="admin-shortcut-toggle" id="adminToggle" onclick="toggleAdminPanel()">
+        <i class="fa-solid fa-user-gear"></i> Admin Panel
+    </div>
+
+    <div class="app-container-outer">
+        <!-- Main Smartphone Frame Shell -->
+        <div class="app-frame framed-mode" id="appFrame">
+            
+            <!-- Simulated Mobile Status Bar -->
+            <div class="phone-status-bar">
+                <span id="phoneTime">17:53</span>
+                <div class="status-icons">
+                    <i class="fa-solid fa-signal"></i>
+                    <i class="fa-solid fa-wifi"></i>
+                    <i class="fa-solid fa-battery-three-quarters"></i>
+                </div>
+            </div>
+
+            <!-- Top Action Header (Search, notifications, theme toggles) -->
+            <header class="top-action-bar" id="appHeader">
+                <div class="top-bar-row-1">
+                    <div class="brand-wrapper">
+                        <!-- Custom SVG Spiritual Logo Symbol -->
+                        <svg class="brand-logo-svg" viewBox="0 0 24 24">
+                            <path d="M12 2L14.85 8.15L21.6 9L16.5 13.5L18 20.25L12 16.8L6 20.25L7.5 13.5L2.4 9L9.15 8.15L12 2Z" stroke="#D4AF37" stroke-width="1" />
+                            <circle cx="12" cy="12" r="3" stroke="#D4AF37" stroke-width="1.2" fill="none"/>
+                        </svg>
+                        <div>
+                            <h1 class="brand-title">Astro by Neetu</h1>
+                            <div class="welcome-msg" id="studentGreeting">Namaste, Student</div>
+                        </div>
+                    </div>
+                    <div class="top-bar-actions">
+                        <!-- Bell Notification Badge -->
+                        <button class="header-icon-btn" onclick="showNotificationCenter()">
+                            <i class="fa-regular fa-bell"></i>
+                            <div class="badge-dot" id="bellBadge"></div>
+                        </button>
+                        <!-- Light/Dark Mode Switcher -->
+                        <button class="header-icon-btn theme-toggle-btn" id="themeToggleBtn" onclick="toggleThemeMode()">
+                            <i class="fa-regular fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Interactive Universal Search Input -->
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon-inside"></i>
+                    <input type="text" class="search-input" id="courseSearch" placeholder="Search courses, astrology tools..." oninput="handleCatalogSearch()">
+                </div>
+            </header>
+
+            <!-- Scrollable View Canvas containing screens -->
+            <main class="view-canvas" id="viewCanvas">
+                
+                <!-- ==========================================
+                     SCREEN 1: HOME VIEW
+                     ========================================== -->
+                <div class="nav-view active" id="viewHome">
+                    
+                    <!-- 1. Upcoming Courses Auto-sliding Carousel Banner (Top priority) -->
+                    <section class="upcoming-carousel-container" id="upcomingViewportFrame">
+                        <div class="section-header-row" style="padding: 0 20px; margin-bottom: 8px;">
+                            <h2 class="section-title"><i class="fa-solid fa-star" style="color:var(--color-secondary); margin-right:4px;"></i> Upcoming Launch Streams</h2>
+                            <span class="section-link" onclick="openUpcomingTabDirect()">View All</span>
+                        </div>
+                        <div class="upcoming-viewport">
+                            <div class="upcoming-slider" id="upcomingSlidesContainer">
+                                <!-- Injected dynamically by JS -->
+                            </div>
+                            <!-- Left/Right controls -->
+                            <button class="carousel-nav-btn prev" onclick="slideUpcomingPrev()"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button class="carousel-nav-btn next" onclick="slideUpcomingNext()"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="upcoming-nav-dots" id="upcomingDotsContainer">
+                            <!-- Dot trackers injected by JS -->
+                        </div>
+                    </section>
+
+                    <!-- 2. "Continue Learning" active course progress panel -->
+                    <section class="section-wrapper" id="continueLearningSection">
+                        <div class="section-header-row">
+                            <h2 class="section-title">Continue Learning</h2>
+                        </div>
+                        <div class="progress-card" onclick="openActiveCourseLearning()">
+                            <div class="progress-header">
+                                <div>
+                                    <span class="progress-subject">Vedic Astrology Basics</span>
+                                    <h4 class="progress-title" id="contCourseTitle">Mastering Vedic Astrology Fundamentals</h4>
+                                </div>
+                                <span class="progress-percent-label" id="contCoursePercent">33%</span>
+                            </div>
+                            <div class="progress-lesson-hint" id="contCourseNextUp">Next Up: Lesson 1.2</div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="contCourseBar" style="width: 33%;"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 3. Ongoing Courses horizontal preview feed -->
+                    <section class="section-wrapper" id="ongoingDashboardSection">
+                        <div class="section-header-row">
+                            <h2 class="section-title">Ongoing Courses</h2>
+                            <span class="section-link" onclick="switchNavTab('Ongoing')">View Details</span>
+                        </div>
+                        <div class="ongoing-horizontal-feed" id="ongoingPreviewContainer">
+                            <!-- Ongoing courses cards list injected by JS -->
+                        </div>
+                    </section>
+
+                    <!-- 4. Featured and Recommended Courses Feed Grid -->
+                    <section class="section-wrapper">
+                        <div class="section-header-row">
+                            <h2 class="section-title">Featured & Recommended Courses</h2>
+                            <span class="section-link" onclick="clearCatalogFilter()">View All</span>
+                        </div>
+                        <div class="courses-grid" id="courseCatalogGrid">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </section>
+
+                    <!-- 5. Clickable Popular Categories horizontal scroll -->
+                    <section class="section-wrapper" style="padding-top: 0;">
+                        <h2 class="section-title" style="margin-bottom: 12px;">Popular Categories</h2>
+                        <div class="horizontal-scroll-chips" id="categoriesContainer">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </section>
+
+                    <!-- 6. Astrology Tools Quick Access banner -->
+                    <section class="section-wrapper" style="padding-top: 0;">
+                        <div class="progress-card" onclick="openToolsTabDirect()" style="background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.05) 0%, rgba(var(--color-secondary-rgb), 0.1) 100%); border-color: var(--color-secondary);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                                <div>
+                                    <span class="progress-subject" style="color:var(--color-secondary);"><i class="fa-solid fa-dharmachakra"></i> Tools Hub</span>
+                                    <h4 class="progress-title" style="font-family:var(--font-serif); margin-top:2px;">Kundali, Numerology & Navatara</h4>
+                                    <span style="font-size:10px; color:var(--color-text-muted);">Instantly compute astrological planetary alignments</span>
+                                </div>
+                                <button class="ongoing-continue-btn" style="background:var(--color-primary); color:#FFFFFF;"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 7. AI Astrology Guru Assistant Promo Banner -->
+                    <section class="section-wrapper" style="padding-top: 0;">
+                        <div class="progress-card" onclick="openGuruTabDirect()" style="background: linear-gradient(135deg, var(--color-primary) 0%, #762A78 100%); border: none; color: #FFFFFF;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                                <div>
+                                    <span class="progress-subject" style="color:var(--color-secondary); font-weight:700;">AI guru assistant</span>
+                                    <h4 class="progress-title" style="font-family:var(--font-serif); color:#FFFFFF; margin-top:2px;">Chat With Astrology Guru</h4>
+                                    <span style="font-size:10px; opacity:0.8;">Get instant spiritual readings & transits queries answered</span>
+                                </div>
+                                <button class="ongoing-continue-btn" style="background:#FFFFFF; color:var(--color-primary);"><i class="fa-solid fa-comment-dots"></i></button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 8. Separate Screen/Section showing all Upcoming Courses -->
+                    <section class="section-wrapper" style="padding-top: 0;">
+                        <div class="section-header-row" style="margin-bottom:12px;">
+                            <h2 class="section-title">All Upcoming Courses</h2>
+                        </div>
+                        <div class="upcoming-courses-full-feed" id="upcomingCoursesFullList">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- ==========================================
+                     SCREEN 2: VIDEO LEARNING VIEW
+                     ========================================== -->
+                <div class="nav-view" id="viewVideoLearning">
+                    <div class="video-view-grid">
+                        
+                        <!-- Simulated video media player canvas -->
+                        <div class="video-player-container">
+                            <div class="video-overlay-canvas" id="videoCanvasOverlay">
+                                <button class="play-center-btn" id="simPlayCenterBtn" onclick="toggleSimVideoPlayback()">
+                                    <i class="fa-solid fa-play" id="centerPlayIcon"></i>
+                                </button>
+                                <div style="font-size: 11px; margin-top: 10px; font-weight: 600;" id="simVideoStatusLabel">Video Paused</div>
+                            </div>
+                            <!-- Video UI controls wrapper bar -->
+                            <div class="video-controls-row">
+                                <div class="video-progress-timeline" onclick="seekSimVideo(event)">
+                                    <div class="video-progress-fill" id="simProgressFill"></div>
+                                </div>
+                                <div class="video-controls-buttons">
+                                    <div class="v-left-grp">
+                                        <button class="v-ctrl-btn" onclick="toggleSimVideoPlayback()"><i class="fa-solid fa-play" id="controlsPlayIcon"></i></button>
+                                        <button class="v-ctrl-btn" onclick="skipSimVideo(-10)"><i class="fa-solid fa-backward-step"></i> -10s</button>
+                                        <button class="v-ctrl-btn" onclick="skipSimVideo(10)">+10s <i class="fa-solid fa-forward-step"></i></button>
+                                    </div>
+                                    <div class="v-right-grp">
+                                        <span id="simVideoTimeLabel" style="font-family: monospace;">05:12 / 15:00</span>
+                                        <button class="v-ctrl-btn" onclick="toggleSimVolume()"><i class="fa-solid fa-volume-high" id="volumeIcon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current lesson description badge -->
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span class="progress-subject" id="courseViewSubject">Vedic Astrology Basics</span>
+                                <h3 class="video-lesson-title-tag" id="courseViewLessonTitle">1.1 Introduction to the 12 Houses of a Kundali</h3>
+                            </div>
+                            <button class="save-note-btn" onclick="backToHomeView()" style="background: var(--bg-surface); border: 1px solid var(--color-border); color: var(--color-text);">
+                                <i class="fa-solid fa-arrow-left"></i> Exit
+                            </button>
+                        </div>
+
+                        <!-- Accordion Lecture Tree Curriculum -->
+                        <div class="accordion-wrapper">
+                            <div class="accordion-header" onclick="toggleCurriculumAccordion()">
+                                <span class="accordion-title-text"><i class="fa-solid fa-book-open" style="margin-right: 6px; color: var(--color-secondary);"></i> Course Curriculum Lectures</span>
+                                <i class="fa-solid fa-chevron-down" id="accordionChevron"></i>
+                            </div>
+                            <div class="accordion-body-list" id="curriculumListContainer">
+                                <!-- Injected dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Dynamic resources tab & Saved Personal notes panel -->
+                        <div class="accordion-wrapper" style="padding: 12px;">
+                            <div class="resources-notes-tabs">
+                                <div class="rn-tab active" id="tabBtnResources" onclick="switchVideoTabs('resources')">Resources</div>
+                                <div class="rn-tab" id="tabBtnNotes" onclick="switchVideoTabs('notes')">Personal Notes</div>
+                            </div>
+
+                            <!-- Resources List panel -->
+                            <div id="videoResourcesPanel">
+                                <div class="resource-download-item">
+                                    <span><i class="fa-regular fa-file-pdf" style="color: var(--color-error); margin-right: 6px;"></i> <span id="resPdfLabel">12_Houses_Cheat_Sheet.pdf</span></span>
+                                    <button class="resource-dl-btn" onclick="triggerResourceDownload()"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Notes panel -->
+                            <div id="videoNotesPanel" style="display: none;">
+                                <textarea class="notes-input-area" id="noteInput" placeholder="Type personal notes anchored to this simulated lecture..."></textarea>
+                                <div class="notes-action-bar">
+                                    <span class="note-timestamp-helper" id="noteTimestampLabel">Anchored Timestamp: 05:12</span>
+                                    <button class="save-note-btn" onclick="savePersonalNote()">Save Note</button>
+                                </div>
+                                <div class="saved-notes-feed" id="notesFeedContainer">
+                                    <!-- Injected dynamically by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Certificate Overlay Panel (Appears at 100% complete) -->
+                    <div class="certificate-overlay" id="certificateOverlay">
+                        <div class="cert-frame-border">
+                            <div class="cert-brand">ASTRO BY NEETU</div>
+                            <div class="cert-award-text">Certificate of Completion</div>
+                            <div class="cert-title" id="certCourseTitle">Mastering Vedic Astrology Fundamentals</div>
+                            <div style="font-size: 11px; margin: 4px 0;">is proudly awarded to</div>
+                            <div class="cert-student-name" id="certStudentName">Aditya Sharma</div>
+                            <p class="cert-body-explanation">
+                                For successfully completing all structured lecture assessments, mathematical planetary formulas, and astrological charts interpretations criteria set for graduation.
+                            </p>
+                            <div class="cert-signatures">
+                                <div class="sig-block">
+                                    <span class="sig-draw">Neetu</span>
+                                    <span class="sig-label">Neetu (Guru Astrologer)</span>
+                                </div>
+                                <div class="sig-block">
+                                    <span class="sig-draw" style="font-family: 'Cinzel'; font-size: 9px; font-weight: 700; color:#D4AF37;">Astro Seal</span>
+                                    <span class="sig-label">Certification Board</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert-download-bar">
+                            <button class="cert-btn cert-btn-secondary" onclick="closeCertificateOverlay()">Review Lessons</button>
+                            <button class="cert-btn cert-btn-primary" onclick="printCertificate()"><i class="fa-solid fa-print"></i> Print / Save PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     SCREEN 3: DEDICATED ONGOING COURSES VIEW
+                     ========================================== -->
+                <div class="nav-view" id="viewOngoing">
+                    <div class="tools-dashboard">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
+                            <h2 class="section-title" style="font-family:var(--font-serif);"><i class="fa-solid fa-book-open-reader" style="color:var(--color-secondary); margin-right:4px;"></i> Enrolled Study Portal</h2>
+                            <select class="form-select" id="ongoingSortSelector" onchange="handleOngoingSortChange()" style="width:auto; padding: 4px 8px; font-size:10px; margin-bottom:0;">
+                                <option value="RecentlyViewed">Recently Viewed</option>
+                                <option value="HighestProgress">Highest Progress</option>
+                                <option value="NewlyEnrolled">Newly Enrolled</option>
+                                <option value="Alphabetical">Alphabetical (A-Z)</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Horizontal filters chips -->
+                        <div class="horizontal-scroll-chips" style="margin: 0; padding: 4px 0 10px 0;">
+                            <div class="category-chip active" id="ongoingPill-All" onclick="handleOngoingFilterChange('All')">All Enrolled</div>
+                            <div class="category-chip" id="ongoingPill-Astrology" onclick="handleOngoingFilterChange('Astrology')">Astrology</div>
+                            <div class="category-chip" id="ongoingPill-Numerology" onclick="handleOngoingFilterChange('Numerology')">Numerology</div>
+                            <div class="category-chip" id="ongoingPill-Completed" onclick="handleOngoingFilterChange('Completed')">Completed 🏆</div>
+                        </div>
+
+                        <!-- Active Ongoing Cards grid listing -->
+                        <div class="courses-grid" id="ongoingFullList">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     SCREEN 4: ASTROLOGY TOOLS SCREEN
+                     ========================================== -->
+                <div class="nav-view" id="viewTools">
+                    <div class="tools-dashboard">
+                        
+                        <!-- Internal Tool Select Menu -->
+                        <div class="tool-navigator-menu">
+                            <button class="tool-nav-btn active" id="tabBtnKundali" onclick="switchAstroTool('kundali')">Kundali</button>
+                            <button class="tool-nav-btn" id="tabBtnNumerology" onclick="switchAstroTool('numerology')">Numerology</button>
+                            <button class="tool-nav-btn" id="tabBtnNavatara" onclick="switchAstroTool('navatara')">Navatara</button>
+                        </div>
+
+                        <!-- TOOL PANEL A: KUNDALI GENERATOR -->
+                        <div class="tool-panel active" id="panelKundali">
+                            <h3 class="tool-panel-title"><i class="fa-solid fa-dharmachakra"></i> Kundali Chart Generator</h3>
+                            
+                            <form id="kundaliForm" onsubmit="generateKundali(event)">
+                                <div class="form-field">
+                                    <label>Full Name</label>
+                                    <input type="text" class="form-input-text" id="kName" placeholder="Enter student name" required value="Aditya Sharma">
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-field">
+                                        <label>Date of Birth</label>
+                                        <input type="date" class="form-input-text" id="kDob" required value="1995-10-15">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Time of Birth</label>
+                                        <input type="time" class="form-input-text" id="kTob" required value="08:30">
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label>Place of Birth</label>
+                                    <select class="form-select" id="kPob">
+                                        <option value="New Delhi, India">New Delhi, India</option>
+                                        <option value="Mumbai, India">Mumbai, India</option>
+                                        <option value="Bengaluru, India">Bengaluru, India</option>
+                                        <option value="London, UK">London, UK</option>
+                                        <option value="New York, USA">New York, USA</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="action-submit-btn">
+                                    <i class="fa-solid fa-compass"></i> Generate Birth Chart
+                                </button>
+                            </form>
+
+                            <!-- Generated output area -->
+                            <div class="kundali-output-canvas" id="kundaliResultBox">
+                                <!-- North Indian Vector SVG Rhombus Grid -->
+                                <svg class="kundali-chart-svg" viewBox="0 0 200 200">
+                                    <!-- Border Frame -->
+                                    <rect class="kundali-border" x="2" y="2" width="196" height="196"/>
+                                    <!-- Main Diagonals -->
+                                    <line class="kundali-line" x1="2" y1="2" x2="198" y2="198"/>
+                                    <line class="kundali-line" x1="198" y1="2" x2="2" y2="198"/>
+                                    <!-- Rhombus Diamond -->
+                                    <line class="kundali-active-diagonal" x1="100" y1="2" x2="198" y2="100"/>
+                                    <line class="kundali-active-diagonal" x1="198" y1="100" x2="100" y2="198"/>
+                                    <line class="kundali-active-diagonal" x1="100" y1="198" x2="2" y2="100"/>
+                                    <line class="kundali-active-diagonal" x1="2" y1="100" x2="100" y2="2"/>
+
+                                    <!-- House Number Labels & Planet Text -->
+                                    <text class="kundali-house-number" x="100" y="86">1</text>
+                                    <text class="kundali-text" x="100" y="65" id="kPlanetH1">Lagna, Ma</text>
+
+                                    <text class="kundali-house-number" x="65" y="46">2</text>
+                                    <text class="kundali-text" x="50" y="32" id="kPlanetH2">-</text>
+
+                                    <text class="kundali-house-number" x="46" y="65">3</text>
+                                    <text class="kundali-text" x="30" y="55" id="kPlanetH3">-</text>
+
+                                    <text class="kundali-house-number" x="84" y="100">4</text>
+                                    <text class="kundali-text" x="55" y="104" id="kPlanetH4">Ju, Ve</text>
+
+                                    <text class="kundali-house-number" x="46" y="135">5</text>
+                                    <text class="kundali-text" x="30" y="150" id="kPlanetH5">-</text>
+
+                                    <text class="kundali-house-number" x="65" y="154">6</text>
+                                    <text class="kundali-text" x="50" y="174" id="kPlanetH6">-</text>
+
+                                    <text class="kundali-house-number" x="100" y="118">7</text>
+                                    <text class="kundali-text" x="100" y="144" id="kPlanetH7">Su, Me</text>
+
+                                    <text class="kundali-house-number" x="135" y="154">8</text>
+                                    <text class="kundali-text" x="150" y="174" id="kPlanetH8">-</text>
+
+                                    <text class="kundali-house-number" x="154" y="135">9</text>
+                                    <text class="kundali-text" x="170" y="150" id="kPlanetH9">-</text>
+
+                                    <text class="kundali-house-number" x="116" y="100">10</text>
+                                    <text class="kundali-text" x="145" y="104" id="kPlanetH10">Mo, Sa</text>
+
+                                    <text class="kundali-house-number" x="154" y="65">11</text>
+                                    <text class="kundali-text" x="170" y="55" id="kPlanetH11">-</text>
+
+                                    <text class="kundali-house-number" x="135" y="46">12</text>
+                                    <text class="kundali-text" x="150" y="32" id="kPlanetH12">-</text>
+                                </svg>
+
+                                <!-- Tabular Planet Ledger -->
+                                <div class="astro-data-table-container">
+                                    <table class="astro-data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Planet</th>
+                                                <th>Degree</th>
+                                                <th>Rashi</th>
+                                                <th>Nakshatra</th>
+                                                <th>Dignity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="kundaliTableBody">
+                                            <!-- Injected dynamically by JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="report-prediction-text-box">
+                                    <strong style="color: var(--color-primary); display:block; margin-bottom: 4px;">Basic Predictions & Lagna Personality Analysis</strong>
+                                    <span id="kundaliPredictionText">Your Lagna is Libra. Sun-Mercury conjunction in the 7th house indicates a strong, charismatic personality with powerful intellectual relationships and good public status. Mars in the Lagna indicates dynamic energy and protective courage.</span>
+                                </div>
+
+                                <button class="action-submit-btn" onclick="exportKundaliReport()" style="margin-top: 12px; background: var(--bg-surface); border: 1px solid var(--color-secondary); color: var(--color-primary);">
+                                    <i class="fa-regular fa-file-pdf"></i> Export Report as PDF
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TOOL PANEL B: NUMEROLOGY CALCULATOR -->
+                        <div class="tool-panel" id="panelNumerology">
+                            <h3 class="tool-panel-title"><i class="fa-solid fa-calculator"></i> Numerology Destiny Calculator</h3>
+                            <form id="numerologyForm" onsubmit="calculateNumerology(event)">
+                                <div class="form-field">
+                                    <label>Name</label>
+                                    <input type="text" class="form-input-text" id="numName" placeholder="Enter full name" required value="Aditya Sharma">
+                                </div>
+                                <div class="form-field">
+                                    <label>Full Date of Birth</label>
+                                    <input type="date" class="form-input-text" id="numDob" required value="1995-10-15">
+                                </div>
+                                <button type="submit" class="action-submit-btn">
+                                    <i class="fa-solid fa-calculator"></i> Calculate Core Numbers
+                                </button>
+                            </form>
+
+                            <!-- Results display blocks -->
+                            <div class="numerology-results-container" id="numerologyResultBox">
+                                <div class="num-core-grid">
+                                    <div class="num-core-card">
+                                        <span class="num-card-title">Life Path Number</span>
+                                        <span class="num-card-val" id="numValLifePath">4</span>
+                                        <span class="num-card-sub" id="numLifePathName">The Architect</span>
+                                    </div>
+                                    <div class="num-core-card">
+                                        <span class="num-card-title">Destiny Number</span>
+                                        <span class="num-card-val" id="numValDestiny">5</span>
+                                        <span class="num-card-sub">The Freedom Lover</span>
+                                    </div>
+                                    <div class="num-core-card">
+                                        <span class="num-card-title">Personality Number</span>
+                                        <span class="num-card-val" id="numValPersonality">8</span>
+                                        <span class="num-card-sub">The Executive</span>
+                                    </div>
+                                    <div class="num-core-card">
+                                        <span class="num-card-title">Soul Urge Number</span>
+                                        <span class="num-card-val" id="numValSoul">6</span>
+                                        <span class="num-card-sub">The Caregiver</span>
+                                    </div>
+                                </div>
+
+                                <div class="report-prediction-text-box">
+                                    <strong style="color: var(--color-primary); display:block; margin-bottom: 4px;" id="numInterpretationTitle">Life Path 4 Traits</strong>
+                                    <span id="numInterpretationDesc">Life Path 4 signifies stability, hard work, discipline, and building firm foundations. You are highly organized, practical, and extremely dependable. You seek security and construct structural order.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOOL PANEL C: NAVATARA CANVAS -->
+                        <div class="tool-panel" id="panelNavatara">
+                            <h3 class="tool-panel-title"><i class="fa-solid fa-chess-board"></i> Navatara Matrix Canvas</h3>
+                            <div class="form-field">
+                                <label>Select Birth Nakshatra (Janma)</label>
+                                <select class="form-select" id="nakshatraDropdown" onchange="calculateNavatara()">
+                                    <option value="Ashwini">Ashwini</option>
+                                    <option value="Bharani">Bharani</option>
+                                    <option value="Krittika">Krittika</option>
+                                    <option value="Rohini">Rohini</option>
+                                    <option value="Mrigashira">Mrigashira</option>
+                                    <option value="Ardra">Ardra</option>
+                                    <option value="Punarvasu">Punarvasu</option>
+                                    <option value="Pushya">Pushya</option>
+                                    <option value="Ashlesha">Ashlesha</option>
+                                </select>
+                            </div>
+
+                            <!-- 3x9 Structural Grid Map -->
+                            <div class="navatara-results-container" style="display: block;" id="navataraResultBox">
+                                <div class="navatara-grid-3x9" id="navataraGrid">
+                                    <!-- Injected dynamically by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     SCREEN 5: AI ASTROLOGY GURU CHAT SCREEN
+                     ========================================== -->
+                <div class="nav-view" id="viewGuru">
+                    <div class="chat-container">
+                        
+                        <!-- Bubbles scroll stream container -->
+                        <div class="chat-bubble-stream" id="chatStream">
+                            <!-- Welcomes -->
+                            <div class="chat-bubble guru">
+                                <p>Hari Om! 🙏 I am your personal <strong>AI Astrology Guru</strong>. Ask me anything about your planetary houses, Vedic charts, Numerology ratios, or Mahadasha cycles.</p>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Typing Simulated Dots Loading -->
+                        <div class="typing-dots" id="chatTyping">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+
+                        <!-- Context Shortcut Quick Chips -->
+                        <div class="chat-shortcuts-row">
+                            <div class="chat-shortcut-chip" onclick="quickChatChipClick('What does my 7th House indicate?')">What does my 7th House indicate?</div>
+                            <div class="chat-shortcut-chip" onclick="quickChatChipClick('How do I calculate my Destiny number?')">How do I calculate my Destiny number?</div>
+                            <div class="chat-shortcut-chip" onclick="quickChatChipClick('Help me understand Mahadashas')">Help me understand Mahadashas</div>
+                        </div>
+
+                        <!-- Text inputs panel -->
+                        <div class="chat-input-bar">
+                            <input type="text" class="chat-text-input" id="chatInput" placeholder="Ask Guru something..." onkeydown="handleChatEnter(event)">
+                            <button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     SCREEN 6: PREMIUM CHECKOUT & PROFILE SYSTEM
+                     ========================================== -->
+                <div class="nav-view" id="viewProfile">
+                    <div class="profile-view-scroll">
+                        
+                        <!-- Student Header area -->
+                        <div class="profile-avatar-row">
+                            <div class="avatar-frame">AS</div>
+                            <div>
+                                <h3 class="avatar-profile-name">Aditya Sharma</h3>
+                                <span class="avatar-student-id">Enrolled Student • Astro ID: 9942</span>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Tiles Analytics Grid -->
+                        <div class="student-analytics-grid">
+                            <div class="analytics-tile">
+                                <span class="analytics-val" id="profPurchasedCount">1</span>
+                                <span class="analytics-lbl">Courses Owned</span>
+                            </div>
+                            <div class="analytics-tile">
+                                <span class="analytics-val" id="profHoursWatched">5.2</span>
+                                <span class="analytics-lbl">Hours Watched</span>
+                            </div>
+                            <div class="analytics-tile">
+                                <span class="analytics-val" id="profReportsArchived">3</span>
+                                <span class="analytics-lbl">Reports Saved</span>
+                            </div>
+                        </div>
+
+                        <!-- Wishlisted favorited items panel -->
+                        <div class="progress-card" style="cursor: default;">
+                            <span class="progress-subject"><i class="fa-solid fa-heart" style="color: #E55757; margin-right: 4px;"></i> Favorites Wishlist</span>
+                            <div id="wishlistContainer">
+                                <div class="wishlist-empty-tag">Your wishlist is currently empty. Heart a course on the catalog feed.</div>
+                            </div>
+                        </div>
+
+                        <!-- Settings logout list -->
+                        <div class="accordion-wrapper" style="padding: 10px 14px; background: var(--bg-surface);">
+                            <div style="font-size: 11px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px;">ACCOUNT INFO</div>
+                            <div style="display: flex; justify-content: space-between; font-size:11px; padding: 8px 0; border-bottom: 1px solid var(--color-border);">
+                                <span>Preferred Email</span>
+                                <span style="color: var(--color-text-muted);">aditya.sharma@astro.com</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size:11px; padding: 8px 0; border-bottom: 1px solid var(--color-border);">
+                                <span>System Language</span>
+                                <span style="color: var(--color-text-muted);">English / Hindi</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size:11px; padding: 8px 0; color: var(--color-error); cursor:pointer;" onclick="simLogout()">
+                                <span><i class="fa-solid fa-power-off"></i> Logout Session</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     SCREEN 7: WEBADMIN DASHBOARD VIEW
+                     ========================================== -->
+                <div class="nav-view" id="viewAdmin">
+                    <div class="admin-dashboard-view">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <h2 class="section-title"><i class="fa-solid fa-toolbox" style="color: var(--color-secondary);"></i> Admin System Panel</h2>
+                            <button class="save-note-btn" onclick="toggleAdminPanel()" style="background:var(--color-primary); padding: 4px 10px; font-size:10px;">Exit Admin</button>
+                        </div>
+
+                        <!-- Stats grid tiles -->
+                        <div class="admin-metrics-grid">
+                            <div class="admin-metric-card">
+                                <span class="val" id="adminRevenue">₹4,999</span>
+                                <span class="lbl">Total Revenue</span>
+                            </div>
+                            <div class="admin-metric-card">
+                                <span class="val" id="adminStudents">148</span>
+                                <span class="lbl">Active Students</span>
+                            </div>
+                            <div class="admin-metric-card">
+                                <span class="val" id="adminSignups">1</span>
+                                <span class="lbl">Course Signups</span>
+                            </div>
+                        </div>
+
+                        <!-- Mock Graph Analytics Bar Canvas -->
+                        <div class="admin-graph-canvas">
+                            <span class="num-card-title" style="align-self: flex-start;">Revenue Growth (Last 5 Weeks)</span>
+                            <div class="chart-bars-row">
+                                <div class="chart-bar" style="height: 10px;"></div>
+                                <div class="chart-bar" style="height: 25px;"></div>
+                                <div class="chart-bar" style="height: 18px;"></div>
+                                <div class="chart-bar" style="height: 45px;"></div>
+                                <div class="chart-bar" style="height: 55px;" id="adminLiveBar"></div>
+                            </div>
+                            <div class="chart-labels-row">
+                                <span>W1</span>
+                                <span>W2</span>
+                                <span>W3</span>
+                                <span>W4</span>
+                                <span>W5</span>
+                            </div>
+                        </div>
+
+                        <!-- Convert upcoming courses to live interface -->
+                        <div class="admin-form-box">
+                            <div class="admin-form-title"><i class="fa-solid fa-rocket" style="color:var(--color-secondary);"></i> Launch Upcoming Live (One-Click)</div>
+                            <div class="admin-student-roster" id="adminUpcomingList">
+                                <!-- Injected dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Dynamic creation controls upcoming courses -->
+                        <div class="admin-form-box">
+                            <div class="admin-form-title"><i class="fa-regular fa-calendar-days" style="color:var(--color-secondary);"></i> Publish Upcoming Course</div>
+                            <form id="adminUpcomingForm" onsubmit="adminCreateUpcomingCourse(event)">
+                                <div class="form-field">
+                                    <label>Upcoming Title</label>
+                                    <input type="text" class="form-input-text" id="aucTitle" placeholder="e.g. Advanced Vedic Astrology" required>
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-field">
+                                        <label>Launch Date</label>
+                                        <input type="date" class="form-input-text" id="aucDate" required>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Duration</label>
+                                        <input type="text" class="form-input-text" id="aucDuration" placeholder="e.g. 4 weeks" required>
+                                    </div>
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-field">
+                                        <label>Category</label>
+                                        <select class="form-select" id="aucCategory">
+                                            <option value="Vedic Astrology Basics">Vedic Astrology Basics</option>
+                                            <option value="Advanced Predictive Astrology">Advanced Predictive Astrology</option>
+                                            <option value="Numerology & Science of Numbers">Numerology & Science of Numbers</option>
+                                            <option value="KP Astrology & Lal Kitab">KP Astrology & Lal Kitab</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Brief Highlight</label>
+                                        <input type="text" class="form-input-text" id="aucDesc" placeholder="e.g. Predict transit alerts" required>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label>Syllabus Syllabus (Curriculum)</label>
+                                    <textarea class="notes-input-area" id="aucSyllabus" placeholder="Outline specific lecture milestones..." required style="height:50px;"></textarea>
+                                </div>
+                                <button type="submit" class="action-submit-btn" style="padding: 8px;">
+                                    <i class="fa-solid fa-plus"></i> Publish Slideshow Card
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Creation Controls Live Active Form -->
+                        <div class="admin-form-box">
+                            <div class="admin-form-title">Create Live Active Course</div>
+                            <form id="adminCourseForm" onsubmit="adminAddNewCourse(event)">
+                                <div class="form-field">
+                                    <label>Course Title</label>
+                                    <input type="text" class="form-input-text" id="acTitle" placeholder="e.g. KP Astrology Fundamentals" required>
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-field">
+                                        <label>Price (₹)</label>
+                                        <input type="number" class="form-input-text" id="acPrice" placeholder="Price in INR" required>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Category</label>
+                                        <select class="form-select" id="acCategory">
+                                            <option value="Vedic Astrology Basics">Vedic Astrology Basics</option>
+                                            <option value="Advanced Predictive Astrology">Advanced Predictive Astrology</option>
+                                            <option value="Numerology & Science of Numbers">Numerology & Science of Numbers</option>
+                                            <option value="KP Astrology & Lal Kitab">KP Astrology & Lal Kitab</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label>Course Description</label>
+                                    <input type="text" class="form-input-text" id="acDesc" placeholder="Brief course highlights..." required>
+                                </div>
+                                <button type="submit" class="action-submit-btn" style="padding: 8px;">
+                                    <i class="fa-solid fa-plus"></i> Publish Live Catalog
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Interactive Student rosters -->
+                        <div class="admin-form-box">
+                            <div class="admin-form-title">Student Sign-up Roster</div>
+                            <div class="admin-student-roster" id="adminRosterContainer">
+                                <div class="roster-row">
+                                    <span class="roster-name">Aditya Sharma</span>
+                                    <span class="roster-status">Enrolled in Vedic Basics</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Push notification controller broadcast -->
+                        <div class="admin-form-box">
+                            <div class="admin-form-title">Broadcast System Notification</div>
+                            <div style="display:flex; gap:6px;">
+                                <input type="text" class="form-input-text" id="adminNotificationText" placeholder="Notification alert body..." style="margin-bottom: 0;">
+                                <button class="save-note-btn" onclick="adminBroadcastAlert()">Send</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- Bottom Dynamic Fixed Navigation 5 Tabs Panel (Home, Ongoing, Tools, AI Guru, Profile) -->
+            <nav class="bottom-nav-bar" id="appBottomNav" style="grid-template-columns: repeat(5, 1fr);">
+                <div class="bottom-nav-tab active" id="tabHome" onclick="switchNavTab('Home')">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </div>
+                <div class="bottom-nav-tab" id="tabOngoing" onclick="switchNavTab('Ongoing')">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>My Learning</span>
+                </div>
+                <div class="bottom-nav-tab" id="tabTools" onclick="switchNavTab('Tools')">
+                    <i class="fa-solid fa-dharmachakra"></i>
+                    <span>Astro Tools</span>
+                </div>
+                <div class="bottom-nav-tab" id="tabGuru" onclick="switchNavTab('Guru')">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>AI Guru</span>
+                </div>
+                <div class="bottom-nav-tab" id="tabProfile" onclick="switchNavTab('Profile')">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Profile</span>
+                </div>
+            </nav>
+
+            <!-- Slide-up checkout purchase modal pane -->
+            <div class="checkout-modal-overlay" id="checkoutModal">
+                <!-- Loaded dynamically by JS -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Core App Logic Driver Script -->
+    <script src="app.js"></script>
+</body>
+</html>
