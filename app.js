@@ -61,7 +61,7 @@ let courses = {
 // 3. SEED LESSONS IN STRUCTURED CURRICULUM
 const lessons = {
     // Jyotish Bodh
-    "1.1": { id: "1.1", courseId: 1, title: "Basics of Astrology & Cosmic Principles", duration: "53 mins", pdf: "L1_Astro_ProfCourse_Class1.pdf", pdfUrl:"/protected-pdf/L1_Astro_ProfCourse_Class1.pdf", videoLength: 900 },
+    "1.1": { id: "1.1", courseId: 1, title: "Basics of Astrology & Cosmic Principles", duration: "15 mins", pdf: "12_Houses_Cheat_Sheet.pdf", videoLength: 900 },
     "1.2": { id: "1.2", courseId: 1, title: "The 12 Houses & Predictions", duration: "22 mins", pdf: "Planet_Dignities.pdf", videoLength: 1320 },
     "1.3": { id: "1.3", courseId: 1, title: "12 Zodiac Signs & Predictions", duration: "30 mins", pdf: "Dasha_Calculation_Guide.pdf", videoLength: 1800 },
     "1.4": { id: "1.4", courseId: 1, title: "9 Planets & Their Significations", duration: "20 mins", pdf: "Planets_Significations.pdf", videoLength: 1200 },
