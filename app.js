@@ -1033,9 +1033,13 @@ function switchVideoTabs(tab) {
 
 function triggerResourceDownload() {
     const lesson = lessons[state.activeLessonId];
-    if (lesson && lesson.pdf) {
-        showToast(`Download initialized: ${lesson.pdf}`, true);
+    if (!lesson || !lesson.pdfUrl) {
+        alert("PDF not found");
+        return;
     }
+    window.open(lesson.pdfUrl, "_blank");
+        // showToast(`Download initialized: ${lesson.pdf}`, true);
+    
 }
 
 function handleLessonCheckboxToggle(event, lessonId) {
