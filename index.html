@@ -205,13 +205,23 @@
                     <div class="video-view-grid">
                         
                         <!-- Simulated video media player canvas -->
-                        <div class="video-player-container">
+                        <!-- <div class="video-player-container">
                             <div class="video-overlay-canvas" id="videoCanvasOverlay">
                                 <button class="play-center-btn" id="simPlayCenterBtn" onclick="toggleSimVideoPlayback()">
                                     <i class="fa-solid fa-play" id="centerPlayIcon"></i>
                                 </button>
                                 <div style="font-size: 11px; margin-top: 10px; font-weight: 600;" id="simVideoStatusLabel">Video Paused</div>
-                            </div>
+                            </div> -->
+                        <div class="video-player-container">
+    <iframe
+        id="youtubePlayer"
+        width="100%"
+        height="400"
+        src=""
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
+</div>
                             <!-- Video UI controls wrapper bar -->
                             <div class="video-controls-row">
                                 <div class="video-progress-timeline" onclick="seekSimVideo(event)">
@@ -252,6 +262,17 @@
                                 <!-- Injected dynamically by JS -->
                             </div>
                         </div>
+                    <!-- PDF Viewer -->
+<div id="pdfViewer" style="margin-top:20px;">
+    <h3 style="margin-bottom:10px;">Lesson Notes</h3>
+
+    <iframe
+        id="pdfIframe"
+        width="100%"
+        height="700"
+        style="border:none; border-radius:12px;">
+    </iframe>
+</div>
 
                         <!-- Dynamic resources tab & Saved Personal notes panel -->
                         <div class="accordion-wrapper" style="padding: 12px;">
