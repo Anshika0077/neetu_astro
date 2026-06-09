@@ -900,54 +900,25 @@ function loadLessonVideo(lessonId) {
     document.getElementById("simVideoStatusLabel").textContent = "Video Paused";
     document.getElementById("centerPlayIcon").className = "fa-solid fa-play";
     document.getElementById("controlsPlayIcon").className = "fa-solid fa-play";
-
-    // Reset progress bar slider values to 0
-    const progressBar = document.getElementById("simVideoProgress");
-    const progressFill = document.getElementById("simVideoProgressFill");
-    const timeDisplay = document.getElementById("simVideoTimeDisplay");
-    
-    if (progressBar) progressBar.value = 0;
-    if (progressFill) progressFill.style.width = "0%";
-    if (timeDisplay) timeDisplay.textContent = `0:00 / ${lesson.duration || '0:00'}`;
-    
-    // Handle YouTube Embed if it exists for the lesson, otherwise show placeholder
-    const playerContainer = document.getElementById("videoPlayerContainer");
-    if (playerContainer) {
-        if (lesson.youtubeEmbedId) {
-            playerContainer.innerHTML = `
-                <iframe width="100%" height="100%" 
-                    src="https://www.youtube.com/embed/${lesson.youtubeEmbedId}?enablejsapi=1" 
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-                </iframe>`;
-        } else {
-            // Standard fallback view for simulated local video playback
-            playerContainer.innerHTML = `
-                <div class="video-placeholder-graphic">
-                    <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 48px; color: var(--color-secondary);"></i>
-                    <p style="margin-top: 12px;">Streaming Astral Session Material...</p>
-                </div>`;
-        }
-    }
-}
     
     updateSimVideoTimeline();
     
-    // ===== LOAD PROTECTED PDF =====
-    const pdfViewer = document.getElementById("pdfViewer");
-    if (pdfViewer) {
-        if (lesson.pdfUrl && state.enrolledCourses.includes(lesson.courseId)) {
-            const pdfIframe = document.getElementById("pdfIframe");
-            pdfIframe.src = lesson.pdfUrl;
-            pdfViewer.style.display = "block";
-        } else {
-            pdfViewer.style.display = "none";
-        }
-    }
+    // // ===== LOAD PROTECTED PDF =====
+    // const pdfViewer = document.getElementById("pdfViewer");
+    // if (pdfViewer) {
+    //     if (lesson.pdfUrl && state.enrolledCourses.includes(lesson.courseId)) {
+    //         const pdfIframe = document.getElementById("pdfIframe");
+    //         pdfIframe.src = lesson.pdfUrl;
+    //         pdfViewer.style.display = "block";
+    //     } else {
+    //         pdfViewer.style.display = "none";
+    //     }
+    // }
     
-    // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
-    if (lesson.youtubeEmbedId) {
-        loadYoutubeVideo(lessonId);
-    }
+    // // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
+    // if (lesson.youtubeEmbedId) {
+    //     loadYoutubeVideo(lessonId);
+    // }
     
     const resPdf = document.getElementById("resPdfLabel");
     if (resPdf) {
@@ -961,20 +932,20 @@ function loadLessonVideo(lessonId) {
     renderSavedNotes();
     renderCurriculumAccordion();
 }
-    updateSimVideoTimeline();
+//     updateSimVideoTimeline();
     
-    const resPdf = document.getElementById("resPdfLabel");
-    if (resPdf) {
-        resPdf.textContent = lesson.pdf ? lesson.pdf : "No additional PDF workbook for this lesson";
-        const dlBtn = document.querySelector(".resource-dl-btn");
-        if(dlBtn) {
-            dlBtn.style.display = lesson.pdf ? "inline-block" : "none";
-        }
-    }
+//     const resPdf = document.getElementById("resPdfLabel");
+//     if (resPdf) {
+//         resPdf.textContent = lesson.pdf ? lesson.pdf : "No additional PDF workbook for this lesson";
+//         const dlBtn = document.querySelector(".resource-dl-btn");
+//         if(dlBtn) {
+//             dlBtn.style.display = lesson.pdf ? "inline-block" : "none";
+//         }
+//     }
     
-    renderSavedNotes();
-    renderCurriculumAccordion();
-}
+//     renderSavedNotes();
+//     renderCurriculumAccordion();
+// }
 
 let videoTicker = null;
 function toggleSimVideoPlayback() {
