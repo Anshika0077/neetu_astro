@@ -901,10 +901,33 @@ function loadLessonVideo(lessonId) {
     document.getElementById("simVideoStatusLabel").textContent = "Video Paused";
     document.getElementById("centerPlayIcon").className = "fa-solid fa-play";
     document.getElementById("controlsPlayIcon").className = "fa-solid fa-play";
-
-    // ← ADD THIS BLOCK:
+    
+    updateSimVideoTimeline();
+    
+    // ===== LOAD PROTECTED PDF =====
+    const pdfViewer = document.getElementById("pdfViewer");
+    if (pdfViewer) {
+        if (lesson.pdfUrl && state.enrolledCourses.includes(lesson.courseId)) {
+            const pdfIframe = document.getElementById("pdfIframe");
+            pdfIframe.src = lesson.pdfUrl;
+            pdfViewer.style.display = "block";
+        } else {
+            pdfViewer.style.display = "none";
+        }
+    }
+    
+    // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
     if (lesson.youtubeEmbedId) {
         loadYoutubeVideo(lessonId);
+    }
+    
+    const resPdf = document.getElementById("resPdfLabel");
+    if (resPdf) {
+        resPdf.textContent = lesson.pdf ? lesson.pdf : "No additional PDF workbook for this lesson";
+        const dlBtn = document.querySelector(".resource-dl-btn");
+        if(dlBtn) {
+            dlBtn.style.display = lesson.pdf ? "inline-block" : "none";
+        }
     }
     
     renderSavedNotes();
