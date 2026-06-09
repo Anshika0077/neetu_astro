@@ -903,22 +903,22 @@ function loadLessonVideo(lessonId) {
     
     updateSimVideoTimeline();
     
-    // // ===== LOAD PROTECTED PDF =====
-    // const pdfViewer = document.getElementById("pdfViewer");
-    // if (pdfViewer) {
-    //     if (lesson.pdfUrl && state.enrolledCourses.includes(lesson.courseId)) {
-    //         const pdfIframe = document.getElementById("pdfIframe");
-    //         pdfIframe.src = lesson.pdfUrl;
-    //         pdfViewer.style.display = "block";
-    //     } else {
-    //         pdfViewer.style.display = "none";
-    //     }
-    // }
+    // ===== LOAD PROTECTED PDF =====
+    const pdfViewer = document.getElementById("pdfViewer");
+    if (pdfViewer) {
+        if (lesson.pdfUrl && state.enrolledCourses.includes(lesson.courseId)) {
+            const pdfIframe = document.getElementById("pdfIframe");
+            pdfIframe.src = lesson.pdfUrl;
+            pdfViewer.style.display = "block";
+        } else {
+            pdfViewer.style.display = "none";
+        }
+    }
     
-    // // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
-    // if (lesson.youtubeEmbedId) {
-    //     loadYoutubeVideo(lessonId);
-    // }
+    // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
+    if (lesson.youtubeEmbedId) {
+        loadYoutubeVideo(lessonId);
+    }
     
     const resPdf = document.getElementById("resPdfLabel");
     if (resPdf) {
