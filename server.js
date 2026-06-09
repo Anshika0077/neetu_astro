@@ -1,17 +1,5 @@
 // server.js – minimal Express server to serve the static SPA
 const express = require('express');
-app.use((req, res, next) => {
-    res.setHeader(
-        'Content-Security-Policy',
-        "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; " +
-        "frame-src 'self' www.youtube-nocookie.com; " +
-        "style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; " +
-        "img-src 'self' data: https:; " +
-        "font-src 'self' cdnjs.cloudflare.com"
-    );
-    next();
-});
 const path = require('path');
 
 const app = express();
