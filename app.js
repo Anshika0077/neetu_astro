@@ -900,6 +900,35 @@ function loadLessonVideo(lessonId) {
     document.getElementById("simVideoStatusLabel").textContent = "Video Paused";
     document.getElementById("centerPlayIcon").className = "fa-solid fa-play";
     document.getElementById("controlsPlayIcon").className = "fa-solid fa-play";
+
+    // Reset progress bar slider values to 0
+    const progressBar = document.getElementById("simVideoProgress");
+    const progressFill = document.getElementById("simVideoProgressFill");
+    const timeDisplay = document.getElementById("simVideoTimeDisplay");
+    
+    if (progressBar) progressBar.value = 0;
+    if (progressFill) progressFill.style.width = "0%";
+    if (timeDisplay) timeDisplay.textContent = `0:00 / ${lesson.duration || '0:00'}`;
+    
+    // Handle YouTube Embed if it exists for the lesson, otherwise show placeholder
+    const playerContainer = document.getElementById("videoPlayerContainer");
+    if (playerContainer) {
+        if (lesson.youtubeEmbedId) {
+            playerContainer.innerHTML = `
+                <iframe width="100%" height="100%" 
+                    src="https://www.youtube.com/embed/${lesson.youtubeEmbedId}?enablejsapi=1" 
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                </iframe>`;
+        } else {
+            // Standard fallback view for simulated local video playback
+            playerContainer.innerHTML = `
+                <div class="video-placeholder-graphic">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 48px; color: var(--color-secondary);"></i>
+                    <p style="margin-top: 12px;">Streaming Astral Session Material...</p>
+                </div>`;
+        }
+    }
+}
     
     updateSimVideoTimeline();
     
