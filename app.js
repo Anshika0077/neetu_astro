@@ -888,7 +888,6 @@ function toggleCurriculumAccordion() {
         }
     }
 }
-
 function loadLessonVideo(lessonId) {
     state.activeLessonId = lessonId;
     const lesson = lessons[lessonId];
@@ -901,17 +900,6 @@ function loadLessonVideo(lessonId) {
     document.getElementById("simVideoStatusLabel").textContent = "Video Paused";
     document.getElementById("centerPlayIcon").className = "fa-solid fa-play";
     document.getElementById("controlsPlayIcon").className = "fa-solid fa-play";
-    // ← ADD THIS BLOCK:
-    if (lesson.youtubeEmbedId) {
-        loadYoutubeVideo(lessonId);
-    }
-    
-    renderSavedNotes();
-    renderCurriculumAccordion();
-}
-
-
-is this correct
     
     updateSimVideoTimeline();
     
