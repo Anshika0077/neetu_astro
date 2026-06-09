@@ -6,9 +6,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Add this at the TOP of server.js, after const app = express();
-
-
-
 // Serve static files from the project root (where index.html lives)
 app.use(express.static(__dirname));
 
