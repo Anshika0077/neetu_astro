@@ -5,6 +5,21 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Add this at the TOP of server.js, after const app = express();
+
+app.use((req, res, next) => {
+    res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; " +
+        "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; " +
+        "frame-src 'self' www.youtube-nocookie.com; " +
+        "style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; " +
+        "img-src 'self' data: https:; " +
+        "font-src 'self' cdnjs.cloudflare.com"
+    );
+    next();
+});
+
 // Serve static files from the project root (where index.html lives)
 app.use(express.static(__dirname));
 
