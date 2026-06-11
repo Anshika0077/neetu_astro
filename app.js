@@ -847,25 +847,6 @@ function openCourseView(courseId) {
 
     const course = courses[courseId];
     document.getElementById("courseViewSubject").textContent = course.category;
-        
-    // const courseLessons = Object.values(lessons).filter(l => l.courseId === courseId);
-    // for (let i = 0; i < courseLessons.length; i++) {
-    //     if (!state.completedLessons[courseLessons[i].id]) {
-    //         state.activeLessonId = courseLessons[i].id;
-    //         break;
-    //     }
-    // }
-
-// Switch to Video Learning View
-        
-    // document.querySelectorAll(".nav-view").forEach(v => v.classList.remove("active"));
-    // document.getElementById("viewVideoLearning").classList.add("active");
-    // document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
-    //  document.getElementById("tabVideoLearning").classList.add("active");
-
-        // LOAD THE LESSON CONTENT (PDF + YouTube)
-    // loadLessonContent(state.activeLessonId);
-    
     const course = courses[courseId];
     document.getElementById("courseViewSubject").textContent = course.category;
     
@@ -898,6 +879,31 @@ function backToHomeView() {
     }
     
     switchNavTab('Home');
+}
+function renderCurriculumAccordion() {
+    const container = document.getElementById("curriculumListContainer");
+    if (!container) return;
+    
+    const courseId = state.activeCourseId;
+    const courseLessons = Object.values(lessons).filter(l => l.courseId === courseId);
+    
+    let html = "";
+    courseLessons.forEach(l => {
+        const isChecked = state.completedLessons[l.id] === true;
+        const isActive = state.activeLessonId === l.id;
+        
+        html += `
+        <div class="curriculum-lesson-item ${isActive ? 'active-playing' : ''}">
+            <input type="checkbox" class="lesson-checkbox" ${isChecked ? 'checked' : ''} onchange="handleLessonCheckboxToggle(event, '${l.id}')">
+            <div class="lesson-info-col" onclick="loadLessonVideo('${l.id}')">
+                <span class="lesson-name-text">Lesson ${l.id}: ${l.title}</span>
+                <span class="lesson-duration-badge"><i class="fa-regular fa-clock"></i> ${l.duration}</span>
+            </div>
+        </div>
+        `;
+    });
+    
+    container.innerHTML = html;
 }
 
 
@@ -942,6 +948,9 @@ function loadLessonVideo(lessonId) {
             pdfViewer.style.display = "none";
         }
     }
+    renderSavedNotes();
+    renderCurriculumAccordion();
+}
     
     // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
     if (lesson.youtubeEmbedId) {
