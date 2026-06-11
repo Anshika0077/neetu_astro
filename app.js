@@ -1053,8 +1053,11 @@ function switchVideoTabs(tab) {
 
 function triggerResourceDownload() {
     const lesson = lessons[state.activeLessonId];
-    if (lesson && lesson.pdf) {
-        showToast(`Download initialized: ${lesson.pdf}`, true);
+
+    if (lesson && lesson.pdfUrl) {
+        openPdfModal(lesson.pdfUrl);
+    } else {
+        showToast("PDF not available", false);
     }
 }
 
