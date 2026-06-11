@@ -800,53 +800,6 @@ function openActiveCourseLearning() {
     openCourseView(state.activeCourseId);
 }
 
-function loadLessonContent(lessonId) {
-    const lesson = lessons[lessonId];
-    if (!lesson) return;
-    
-    state.activeLessonId = lessonId;
-    
-    // Update lesson title display
-    document.getElementById("courseViewLessonTitle").textContent = lesson.title;
-    document.getElementById("courseViewSubject").textContent = 
-        courses[lesson.courseId].category;
-    
-    // Update timestamp helper for notes
-    document.getElementById("noteTimestampLabel").textContent = 
-        `Anchored Timestamp: ${lesson.duration}`;
-    
-    // ========== LOAD YOUTUBE VIDEO ==========
-    const youtubePlayer = document.getElementById("youtubePlayer");
-    if (youtubePlayer && lesson.youtubeEmbedId) {
-        const videoUrl = `https://www.youtube.com/embed/${lesson.youtubeEmbedId}?autoplay=1`;
-        youtubePlayer.src = videoUrl;
-        console.log(`Loading YouTube: ${videoUrl}`);
-    }
-    
-    // ========== LOAD PDF ==========
-    const pdfIframe = document.getElementById("pdfIframe");
-    const pdfViewer = document.getElementById("pdfViewer");
-    
-    if (pdfIframe && lesson.pdfUrl) {
-        // Make sure path is correct relative to your project
-        const pdfPath = lesson.pdfUrl.startsWith('/') ? lesson.pdfUrl : `/${lesson.pdfUrl}`;
-        pdfIframe.src = pdfPath;
-        console.log(`Loading PDF: ${pdfPath}`);
-    }
-    
-    // Update resource label
-    document.getElementById("resPdfLabel").textContent = lesson.pdf || "Lesson Notes.pdf";
-    
-    // Update video time display
-    document.getElementById("simVideoTimeLabel").textContent = 
-        `00:00 / ${lesson.duration}`;
-    
-    // Reset video controls
-    state.videoPlaying = false;
-    state.videoTime = 0;
-    document.getElementById("controlsPlayIcon").className = "fa-solid fa-play";
-    document.getElementById("simProgressFill").style.width = "0%";
-}
 
 function renderCurriculumAccordion() {
     const container = document.getElementById("curriculumListContainer");
@@ -909,11 +862,11 @@ function openCourseView(courseId) {
         
     document.querySelectorAll(".nav-view").forEach(v => v.classList.remove("active"));
     document.getElementById("viewVideoLearning").classList.add("active");
-    document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
-     document.getElementById("tabVideoLearning").classList.add("active");
+    // document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+    //  document.getElementById("tabVideoLearning").classList.add("active");
 
         // LOAD THE LESSON CONTENT (PDF + YouTube)
-    loadLessonContent(state.activeLessonId);
+    // loadLessonContent(state.activeLessonId);
     
     const course = courses[courseId];
     document.getElementById("courseViewSubject").textContent = course.category;
@@ -949,131 +902,9 @@ function backToHomeView() {
     switchNavTab('Home');
 }
 
-function renderCurriculumAccordion() {
-    const container = document.getElementById("curriculumListContainer");
-    if (!container) return;
+
+
     
-    const courseId = state.activeCourseId;
-    const courseLessons = Object.values(lessons).filter(l => l.courseId === courseId);
-    
-    let html = "";
-    courseLessons.forEach(l => {
-        const isChecked = state.completedLessons[l.id] === true;
-        const isActive = state.activeLessonId === l.id;
-        
-        html += `
-        <div class="curriculum-lesson-item ${isActive ? 'active-playing' : ''}">
-            <input type="checkbox" class="lesson-checkbox" ${isChecked ? 'checked' : ''} onchange="handleLessonCheckboxToggle(event, '${l.id}')">
-            <div class="lesson-info-col" onclick="loadLessonVideo('${l.id}')">
-                <span class="lesson-name-text">Lesson ${l.id}: ${l.title}</span>
-                <span class="lesson-duration-badge"><i class="fa-regular fa-clock"></i> ${l.duration}</span>
-            </div>
-        </div>
-        `;
-    });
-    
-    container.innerHTML = html;
-}
-
-    function toggleSimVideoPlayback() {
-    state.videoPlaying = !state.videoPlaying;
-    const playIcon = document.getElementById("controlsPlayIcon");
-    const statusLabel = document.querySelector("#videoCanvasOverlay div:last-child");
-    
-    if (playIcon) {
-        playIcon.className = state.videoPlaying ? "fa-solid fa-pause" : "fa-solid fa-play";
-    }
-    
-    if (statusLabel) {
-        statusLabel.textContent = state.videoPlaying ? "Video Playing" : "Video Paused";
-    }
-    
-    // Also control YouTube iframe
-    const youtubePlayer = document.getElementById("youtubePlayer");
-    if (youtubePlayer && youtubePlayer.src) {
-        // Note: Full YouTube control requires YouTube API
-        console.log(state.videoPlaying ? "Play video" : "Pause video");
-    }
-}
-
-function skipSimVideo(seconds) {
-    state.videoTime += seconds;
-    if (state.videoTime < 0) state.videoTime = 0;
-    
-    const lesson = lessons[state.activeLessonId];
-    if (lesson) {
-        const mins = Math.floor(state.videoTime / 60);
-        const secs = state.videoTime % 60;
-        document.getElementById("simVideoTimeLabel").textContent = 
-            `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} / ${lesson.duration}`;
-        
-        // Update progress bar
-        const progress = (state.videoTime / lesson.videoLength) * 100;
-        document.getElementById("simProgressFill").style.width = `${progress}%`;
-    }
-}
-
-function toggleSimVolume() {
-    state.videoVolumeHigh = !state.videoVolumeHigh;
-    const volumeIcon = document.getElementById("volumeIcon");
-    if (volumeIcon) {
-        volumeIcon.className = state.videoVolumeHigh ? 
-            "fa-solid fa-volume-high" : "fa-solid fa-volume-xmark";
-    }
-}
-
-    function backToHomeView() {
-    switchNavTab('Home');
-}
-
-function openToolsTabDirect() {
-    switchNavTab('Tools');
-}
-
-function openGuruTabDirect() {
-    switchNavTab('Guru');
-}
-
-function openUpcomingTabDirect() {
-    // You might want to create a separate Upcoming view
-    showToast("Upcoming courses listed on Home");
-}
-
-function toggleCurriculumAccordion() {
-    const chevron = document.getElementById("accordionChevron");
-    const accordionBody = document.getElementById("curriculumListContainer");
-    
-    if (chevron) {
-        if (accordionBody.style.display === "none") {
-            chevron.className = "fa-solid fa-chevron-down";
-            accordionBody.style.display = "block";
-        } else {
-            chevron.className = "fa-solid fa-chevron-up";
-            accordionBody.style.display = "none";
-        }
-    }
-}
-
-function switchVideoTabs(tabName) {
-    state.videoTab = tabName;
-    
-    document.getElementById("tabBtnResources").classList.toggle("active", tabName === 'resources');
-    document.getElementById("tabBtnNotes").classList.toggle("active", tabName === 'notes');
-    document.getElementById("videoResourcesPanel").style.display = tabName === 'resources' ? "block" : "none";
-    document.getElementById("videoNotesPanel").style.display = tabName === 'notes' ? "block" : "none";
-}
-
-function triggerResourceDownload() {
-    const lesson = lessons[state.activeLessonId];
-    if (lesson && lesson.pdf) {
-        const link = document.createElement("a");
-        link.href = lesson.pdfUrl;
-        link.download = lesson.pdf;
-        link.click();
-        showToast(`Downloading ${lesson.pdf}`);
-    }
-}
-
 function toggleCurriculumAccordion() {
     const body = document.getElementById("curriculumListContainer");
     const chevron = document.getElementById("accordionChevron");
