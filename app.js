@@ -920,16 +920,10 @@ function loadLessonVideo(lessonId) {
     // LOAD PDF
     // =========================
     const pdfViewer = document.getElementById("pdfViewer");
-    const pdfIframe = document.getElementById("pdfIframe");
 
-    if (pdfViewer && pdfIframe) {
-        if (lesson.pdfUrl) {
-            pdfIframe.src = lesson.pdfUrl;
-            pdfViewer.style.display = "block";
-        } else {
-            pdfViewer.style.display = "none";
-        }
-    }
+if (pdfViewer) {
+    pdfViewer.style.display = "none";
+}
 
     // Resources section
     const resPdf = document.getElementById("resPdfLabel");
