@@ -61,7 +61,7 @@ let courses = {
 // 3. SEED LESSONS IN STRUCTURED CURRICULUM
 const lessons = {
     // Jyotish Bodh
-    "1.1": { id: "1.1", courseId: 1, title: "Basics of Astrology & Cosmic Principles", duration: "53 mins", pdf: "L1_Astro_ProfCourse_Class1.pdf", pdfUrl:"/pdf/L1_Astro_ProfCourse_Class1.pdf", youtubeEmbedId:"N_W-SOMNJ_4", videoLength: 900 }, 
+    "1.1": { id: "1.1", courseId: 1, title: "Basics of Astrology & Cosmic Principles", duration: "15 mins", pdf: "12_Houses_Cheat_Sheet.pdf", videoLength: 900 },
     "1.2": { id: "1.2", courseId: 1, title: "The 12 Houses & Predictions", duration: "22 mins", pdf: "Planet_Dignities.pdf", videoLength: 1320 },
     "1.3": { id: "1.3", courseId: 1, title: "12 Zodiac Signs & Predictions", duration: "30 mins", pdf: "Dasha_Calculation_Guide.pdf", videoLength: 1800 },
     "1.4": { id: "1.4", courseId: 1, title: "9 Planets & Their Significations", duration: "20 mins", pdf: "Planets_Significations.pdf", videoLength: 1200 },
@@ -800,36 +800,6 @@ function openActiveCourseLearning() {
     openCourseView(state.activeCourseId);
 }
 
-
-function renderCurriculumAccordion() {
-    const container = document.getElementById("curriculumListContainer");
-    if (!container) return;
-    
-    const courseLessons = Object.values(lessons).filter(l => l.courseId === state.activeCourseId);
-    
-    let html = "";
-    courseLessons.forEach(lesson => {
-        const isCompleted = state.completedLessons[lesson.id];
-        const isActive = lesson.id === state.activeLessonId;
-        
-        html += `
-        <div class="curriculum-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" 
-             onclick="loadLessonContent('${lesson.id}')">
-            <div class="curriculum-left">
-                <i class="fa-solid ${isCompleted ? 'fa-check-circle' : 'fa-play-circle'} 
-                    ${isCompleted ? 'completed-icon' : ''}"></i>
-                <span class="curriculum-duration">${lesson.duration}</span>
-            </div>
-            <span class="curriculum-title">${lesson.title}</span>
-            <div class="curriculum-right">
-                ${isActive ? '<i class="fa-solid fa-chevron-down"></i>' : ''}
-            </div>
-        </div>
-        `;
-    });
-    
-    container.innerHTML = html;
-}
 // ==========================================================================
 // F. VIDEO VIEW & CHECKLIST ACCORDIONS
 // ==========================================================================
@@ -838,15 +808,13 @@ function openCourseView(courseId) {
     
     // Track Last Accessed Timestamps
     if (!state.enrolledCoursesMetadata[courseId]) {
-        state.enrolledCoursesMetadata[courseId] = {
-        }
+        state.enrolledCoursesMetadata[courseId] = {};
+    }
     state.enrolledCoursesMetadata[courseId].lastAccessed = new Date().toISOString();
     
     document.querySelectorAll(".nav-view").forEach(v => v.classList.remove("active"));
     document.getElementById("viewVideoLearning").classList.add("active");
-
-    const course = courses[courseId];
-    document.getElementById("courseViewSubject").textContent = course.category;
+    
     const course = courses[courseId];
     document.getElementById("courseViewSubject").textContent = course.category;
     
@@ -880,6 +848,7 @@ function backToHomeView() {
     
     switchNavTab('Home');
 }
+
 function renderCurriculumAccordion() {
     const container = document.getElementById("curriculumListContainer");
     if (!container) return;
@@ -906,9 +875,6 @@ function renderCurriculumAccordion() {
     container.innerHTML = html;
 }
 
-
-
-    
 function toggleCurriculumAccordion() {
     const body = document.getElementById("curriculumListContainer");
     const chevron = document.getElementById("accordionChevron");
@@ -922,6 +888,7 @@ function toggleCurriculumAccordion() {
         }
     }
 }
+
 function loadLessonVideo(lessonId) {
     state.activeLessonId = lessonId;
     const lesson = lessons[lessonId];
@@ -937,26 +904,6 @@ function loadLessonVideo(lessonId) {
     
     updateSimVideoTimeline();
     
-    // ===== LOAD PROTECTED PDF =====
-    const pdfViewer = document.getElementById("pdfViewer");
-    if (pdfViewer) {
-        if (lesson.pdfUrl && state.enrolledCourses.includes(lesson.courseId)) {
-            const pdfIframe = document.getElementById("pdfIframe");
-            pdfIframe.src = lesson.pdfUrl;
-            pdfViewer.style.display = "block";
-        } else {
-            pdfViewer.style.display = "none";
-        }
-    }
-    renderSavedNotes();
-    renderCurriculumAccordion();
-}
-    
-    // ===== LOAD RESTRICTED YOUTUBE VIDEO =====
-    if (lesson.youtubeEmbedId) {
-        loadYoutubeVideo(lessonId);
-    }
-    
     const resPdf = document.getElementById("resPdfLabel");
     if (resPdf) {
         resPdf.textContent = lesson.pdf ? lesson.pdf : "No additional PDF workbook for this lesson";
@@ -969,20 +916,6 @@ function loadLessonVideo(lessonId) {
     renderSavedNotes();
     renderCurriculumAccordion();
 }
-//     updateSimVideoTimeline();
-    
-//     const resPdf = document.getElementById("resPdfLabel");
-//     if (resPdf) {
-//         resPdf.textContent = lesson.pdf ? lesson.pdf : "No additional PDF workbook for this lesson";
-//         const dlBtn = document.querySelector(".resource-dl-btn");
-//         if(dlBtn) {
-//             dlBtn.style.display = lesson.pdf ? "inline-block" : "none";
-//         }
-//     }
-    
-//     renderSavedNotes();
-//     renderCurriculumAccordion();
-// }
 
 let videoTicker = null;
 function toggleSimVideoPlayback() {
