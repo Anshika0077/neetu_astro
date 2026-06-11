@@ -893,26 +893,52 @@ function loadLessonVideo(lessonId) {
     state.activeLessonId = lessonId;
     const lesson = lessons[lessonId];
     if (!lesson) return;
-    
+
     state.videoPlaying = false;
     state.videoTime = 0;
-    
-    document.getElementById("courseViewLessonTitle").textContent = `${lessonId} ${lesson.title}`;
-    document.getElementById("simVideoStatusLabel").textContent = "Video Paused";
-    document.getElementById("centerPlayIcon").className = "fa-solid fa-play";
-    document.getElementById("controlsPlayIcon").className = "fa-solid fa-play";
-    
+
+    document.getElementById("courseViewLessonTitle").textContent =
+        `${lessonId} ${lesson.title}`;
+
     updateSimVideoTimeline();
-    
-    const resPdf = document.getElementById("resPdfLabel");
-    if (resPdf) {
-        resPdf.textContent = lesson.pdf ? lesson.pdf : "No additional PDF workbook for this lesson";
-        const dlBtn = document.querySelector(".resource-dl-btn");
-        if(dlBtn) {
-            dlBtn.style.display = lesson.pdf ? "inline-block" : "none";
+
+    // =========================
+    // LOAD YOUTUBE VIDEO
+    // =========================
+    const ytPlayer = document.getElementById("youtubePlayer");
+
+    if (ytPlayer) {
+        if (lesson.youtubeEmbedId) {
+            ytPlayer.src =
+                `https://www.youtube.com/embed/${lesson.youtubeEmbedId}`;
+        } else {
+            ytPlayer.src = "";
         }
     }
-    
+
+    // =========================
+    // LOAD PDF
+    // =========================
+    const pdfViewer = document.getElementById("pdfViewer");
+    const pdfIframe = document.getElementById("pdfIframe");
+
+    if (pdfViewer && pdfIframe) {
+        if (lesson.pdfUrl) {
+            pdfIframe.src = lesson.pdfUrl;
+            pdfViewer.style.display = "block";
+        } else {
+            pdfViewer.style.display = "none";
+        }
+    }
+
+    // Resources section
+    const resPdf = document.getElementById("resPdfLabel");
+
+    if (resPdf) {
+        resPdf.textContent =
+            lesson.pdf || "No PDF available";
+    }
+
     renderSavedNotes();
     renderCurriculumAccordion();
 }
