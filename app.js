@@ -2008,3 +2008,27 @@ function getGuruResponse(query) {
     
     return "Your query resonates with cosmic frequencies. In spiritual wisdom, every planetary alignment teaches us a karmic lesson. To see your planetary positions in detail, utilize our <strong>Kundali Calculator</strong> or enroll in our comprehensive courses! Let me know if you need specific advice. 🙏";
 }
+
+// Existing code...
+
+function triggerResourceDownload() {
+    const lesson = lessons[state.activeLessonId];
+
+    if (lesson && lesson.pdfUrl) {
+        openPdfModal(lesson.pdfUrl);
+    } else {
+        showToast("PDF not available", false);
+    }
+}
+
+// PASTE HERE ↓↓↓
+
+function openPdfModal(pdfUrl) {
+    document.getElementById("pdfModalFrame").src = pdfUrl;
+    document.getElementById("pdfModal").style.display = "block";
+}
+
+function closePdfModal() {
+    document.getElementById("pdfModal").style.display = "none";
+    document.getElementById("pdfModalFrame").src = "";
+}
