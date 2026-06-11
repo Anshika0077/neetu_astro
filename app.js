@@ -839,29 +839,27 @@ function openCourseView(courseId) {
     // Track Last Accessed Timestamps
     if (!state.enrolledCoursesMetadata[courseId]) {
         state.enrolledCoursesMetadata[courseId] = {
-            
-    // Track Last Accessed Timestamps
-    if (!state.enrolledCoursesMetadata[courseId]) {
-        state.enrolledCoursesMetadata[courseId] = {
-            lastAccessed: new Date().toISOString(),
-            completedCount: 0,
-            timeRemaining: "0h 0m"
-        };
-    }
-    state.enrolledCoursesMetadata[courseId].lastAccessed = new Date().toISOString();
-        
-    const courseLessons = Object.values(lessons).filter(l => l.courseId === courseId);
-    for (let i = 0; i < courseLessons.length; i++) {
-        if (!state.completedLessons[courseLessons[i].id]) {
-            state.activeLessonId = courseLessons[i].id;
-            break;
         }
-    }
+    state.enrolledCoursesMetadata[courseId].lastAccessed = new Date().toISOString();
+    
+    document.querySelectorAll(".nav-view").forEach(v => v.classList.remove("active"));
+    document.getElementById("viewVideoLearning").classList.add("active");
+
+    const course = courses[courseId];
+    document.getElementById("courseViewSubject").textContent = course.category;
+        
+    // const courseLessons = Object.values(lessons).filter(l => l.courseId === courseId);
+    // for (let i = 0; i < courseLessons.length; i++) {
+    //     if (!state.completedLessons[courseLessons[i].id]) {
+    //         state.activeLessonId = courseLessons[i].id;
+    //         break;
+    //     }
+    // }
 
 // Switch to Video Learning View
         
-    document.querySelectorAll(".nav-view").forEach(v => v.classList.remove("active"));
-    document.getElementById("viewVideoLearning").classList.add("active");
+    // document.querySelectorAll(".nav-view").forEach(v => v.classList.remove("active"));
+    // document.getElementById("viewVideoLearning").classList.add("active");
     // document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
     //  document.getElementById("tabVideoLearning").classList.add("active");
 
