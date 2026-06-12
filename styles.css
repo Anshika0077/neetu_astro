@@ -355,7 +355,6 @@ body {
     height: calc(100% - 64px); /* Fallback option, or use flexbox */
     overflow-y: auto;          /* Allows course cards to scroll beautifully inside */
     padding-bottom: 80px;
-    box-sizing: border-box;
     /* flex: 1;
     overflow-y: auto;
     padding-bottom: 76px; */
