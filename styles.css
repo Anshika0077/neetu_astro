@@ -1820,7 +1820,6 @@ body {
     background: var(--bg-surface);
     border-top: 1px solid var(--color-border);
     scrollbar-width: none;
-    flex-shrink: 0;
 }
 .chat-shortcuts-row::-webkit-scrollbar {
     display: none;
@@ -1846,7 +1845,6 @@ body {
     border-top: 1px solid var(--color-border);
     display: flex;
     gap: 8px;
-    flex-shrink: 0;
 }
 .chat-text-input {
     flex: 1;
