@@ -355,9 +355,6 @@ body {
 /* Tab screens visible active toggles */
 .nav-view {
     display: none;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
     animation: fadeInView var(--transition-smooth) forwards;
 }
 .nav-view.active {
