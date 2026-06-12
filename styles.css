@@ -1755,7 +1755,6 @@ body {
     display: flex;
     flex-direction: column;
     background: var(--bg-app);
-    overflow: hidden;
 }
 .chat-bubble-stream {
     flex: 1;
@@ -1764,7 +1763,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    min-height: 0;
 }
 .chat-bubble {
     max-width: 80%;
