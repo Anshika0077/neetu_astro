@@ -354,7 +354,7 @@ body {
 
 /* Tab screens visible active toggles */
 .nav-view {
-    display: none;       /* Hide all screens by default */
+    display: none;
     width: 100%;
     height: 100%;
     overflow-y: auto;
