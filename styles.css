@@ -352,9 +352,12 @@ body {
 
 /* Scrollable View Canvas */
 .view-canvas {
-    flex: 1;
+    height: calc(100% - 64px); /* Fallback option, or use flexbox */
+    overflow-y: auto;          /* Allows course cards to scroll beautifully inside */
+    padding-bottom: 80px;
+    /* flex: 1;
     overflow-y: auto;
-    padding-bottom: 76px;
+    padding-bottom: 76px; */
 }
 
 /* Tab screens visible active toggles */
@@ -377,6 +380,20 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
+    width: 100%; /* Ensure it spans perfectly across the bottom edge */
+    height: 64px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--glass-border);
+    display: grid;
+    align-items: center;
+    z-index: 1000; /* Increased to stay on top of all scrolling content grids */
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.03);
+    /* position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: 64px;
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
@@ -385,7 +402,7 @@ body {
     display: grid;
     align-items: center;
     z-index: 950;
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.03); */
 }
 
 .bottom-nav-tab {
