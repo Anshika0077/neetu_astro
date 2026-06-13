@@ -8,11 +8,11 @@ const categories = [
     "Advanced Astrology",
     "Numerology",
     "Nakshatras",
-    "Predictive Astrology",
-    "Career Astrology",
-    "Relationship Astrology",
-    "Remedies",
-    "Tarot"
+    // "Predictive Astrology",
+    // "Career Astrology",
+    // "Relationship Astrology",
+    // "Remedies",
+    // "Tarot"
 ];
 
 // 2. SEED ACTIVE LIVE COURSES (Current Courses)
@@ -43,19 +43,19 @@ let courses = {
         enrollmentCount: 852,
         desc: "Comprehensive guide to Introduction to Numerology, Life Path Number, Destiny Number, Soul Number, Personality Number, Name Numerology, and Practical Numerology Analysis."
     },
-    3: {
-        id: 3,
-        title: "Nakshatra Foundations",
-        price: 3499,
-        rating: 4.9,
-        lessonsCount: 5,
-        category: "Nakshatras",
-        instructor: "Neetu",
-        level: "Intermediate",
-        duration: "5 Weeks",
-        enrollmentCount: 614,
-        desc: "Learn 27 Nakshatras, Nakshatra Characteristics, Nakshatra Compatibility, Nakshatra Predictions, and Nakshatra-Based Remedies."
-    }
+    // 3: {
+    //     id: 3,
+    //     title: "Nakshatra Foundations",
+    //     price: 3499,
+    //     rating: 4.9,
+    //     lessonsCount: 5,
+    //     category: "Nakshatras",
+    //     instructor: "Neetu",
+    //     level: "Intermediate",
+    //     duration: "5 Weeks",
+    //     enrollmentCount: 614,
+    //     desc: "Learn 27 Nakshatras, Nakshatra Characteristics, Nakshatra Compatibility, Nakshatra Predictions, and Nakshatra-Based Remedies."
+    // }
 };
 
 // 3. SEED LESSONS IN STRUCTURED CURRICULUM
