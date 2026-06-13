@@ -62,15 +62,15 @@ let courses = {
 const lessons = {
     // Jyotish Bodh
     "1.1": { id: "1.1", courseId: 1, title: "Basics of Astrology & Cosmic Principles", duration: "53 mins", pdf: "L1_Astro_ProfCourse_Class1.pdf", pdfUrl:"/pdfs/L1_Astro_ProfCourse_Class1.pdf", youtubeEmbedId:"N_W-SOMNJ_4", videoLength: 900 },
-    "1.2": { id: "1.2", courseId: 1, title: "The 12 Houses & Predictions", duration: "22 mins", pdf: "Planet_Dignities.pdf", videoLength: 1320 },
-    "1.3": { id: "1.3", courseId: 1, title: "12 Zodiac Signs & Predictions", duration: "30 mins", pdf: "Dasha_Calculation_Guide.pdf", videoLength: 1800 },
-    "1.4": { id: "1.4", courseId: 1, title: "9 Planets & Their Significations", duration: "20 mins", pdf: "Planets_Significations.pdf", videoLength: 1200 },
-    "1.5": { id: "1.5", courseId: 1, title: "Results of Each Planet in 12 Houses", duration: "28 mins", pdf: "Planets_In_Houses.pdf", videoLength: 1680 },
-    "1.6": { id: "1.6", courseId: 1, title: "Ascendant (Lagna) Fundamentals", duration: "18 mins", pdf: "Lagna_Personality_Chart.pdf", videoLength: 1080 },
-    "1.7": { id: "1.7", courseId: 1, title: "Planetary Aspects & Aspects Meanings", duration: "25 mins", pdf: "Aspects_Guide.pdf", videoLength: 1500 },
-    "1.8": { id: "1.8", courseId: 1, title: "Yogas in Astrology (Raj Yoga, Dhan Yoga)", duration: "26 mins", pdf: "Yogas_Workbook.pdf", videoLength: 1560 },
-    "1.9": { id: "1.9", courseId: 1, title: "Introduction to Mahadasha & Antardasha", duration: "32 mins", pdf: "Dasha_Cycles_Table.pdf", videoLength: 1920 },
-    "1.10": { id: "1.10", courseId: 1, title: "Practical Chart Reading & Birth Chart Analysis", duration: "40 mins", pdf: "Chart_Reading_Handout.pdf", videoLength: 2400 },
+    // "1.2": { id: "1.2", courseId: 1, title: "The 12 Houses & Predictions", duration: "22 mins", pdf: "Planet_Dignities.pdf", videoLength: 1320 },
+    // "1.3": { id: "1.3", courseId: 1, title: "12 Zodiac Signs & Predictions", duration: "30 mins", pdf: "Dasha_Calculation_Guide.pdf", videoLength: 1800 },
+    // "1.4": { id: "1.4", courseId: 1, title: "9 Planets & Their Significations", duration: "20 mins", pdf: "Planets_Significations.pdf", videoLength: 1200 },
+    // "1.5": { id: "1.5", courseId: 1, title: "Results of Each Planet in 12 Houses", duration: "28 mins", pdf: "Planets_In_Houses.pdf", videoLength: 1680 },
+    // "1.6": { id: "1.6", courseId: 1, title: "Ascendant (Lagna) Fundamentals", duration: "18 mins", pdf: "Lagna_Personality_Chart.pdf", videoLength: 1080 },
+    // "1.7": { id: "1.7", courseId: 1, title: "Planetary Aspects & Aspects Meanings", duration: "25 mins", pdf: "Aspects_Guide.pdf", videoLength: 1500 },
+    // "1.8": { id: "1.8", courseId: 1, title: "Yogas in Astrology (Raj Yoga, Dhan Yoga)", duration: "26 mins", pdf: "Yogas_Workbook.pdf", videoLength: 1560 },
+    // "1.9": { id: "1.9", courseId: 1, title: "Introduction to Mahadasha & Antardasha", duration: "32 mins", pdf: "Dasha_Cycles_Table.pdf", videoLength: 1920 },
+    // "1.10": { id: "1.10", courseId: 1, title: "Practical Chart Reading & Birth Chart Analysis", duration: "40 mins", pdf: "Chart_Reading_Handout.pdf", videoLength: 2400 },
     
     // Numerology
     "2.1": { id: "2.1", courseId: 2, title: "Introduction to Numerology & Pythagorean Grid", duration: "18 mins", pdf: "Core_Numbers_Workbook.pdf", videoLength: 1080 },
